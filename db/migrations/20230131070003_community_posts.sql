@@ -1,0 +1,15 @@
+-- migrate:up
+CREATE TABLE community_posts (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  thumbnail VARCHAR(255) NULL,
+  content VARCHAR(1000) NULL,
+  category_id INT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+
+-- migrate:down
+DROP TABLE community_posts;
