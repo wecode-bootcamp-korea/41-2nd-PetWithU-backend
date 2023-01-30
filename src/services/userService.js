@@ -14,7 +14,7 @@ const kakaoLogin = async (kakaoToken) => {
   });
 
   if (!kakaoUserInfo) {
-    throwCustomError("NEED_USERINFO", 400);
+    throwCustomError("NEED_KAKAO_USER_INFO", 400);
   }
 
   const kakaoId = kakaoUserInfo.data.id;
