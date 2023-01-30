@@ -1,0 +1,30 @@
+{
+  "name": "41-2nd-petwithu-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "DOTENV_CONFIG_PATH=.env.test jest --setupFiles=dotenv/config --runInBand --detectOpenHandles --forceExit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wecode-bootcamp-korea/41-2nd-PetWithU-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mysql2": "^2.3.3",
+    "package.json": "^2.0.1",
+    "typeorm": "^0.3.11"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20"
+  }
+}
