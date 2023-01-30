@@ -1,0 +1,12 @@
+-- migrate:up
+CREATE TABLE promenade_maps (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  latitude DECIMAL (9, 6) NULL,
+  longitude DECIMAL (9, 6) NULL,
+  text VARCHAR(255) NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- migrate:down
+DROP TABLE promenade_maps;
