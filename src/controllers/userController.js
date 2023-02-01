@@ -1,15 +1,12 @@
 const userService = require("../services/userService");
 const { asyncErrorHandler } = require("../utils/errorHandling");
 
-// SDK
 const kakaoLogin = asyncErrorHandler(async (req, res) => {
   const kakaoToken = req.headers.value;
   console.log(req.headers);
 
   if (!kakaoToken) {
-    const err = new Error("NEED_ACCESS_TOKEN");
-    err.statusCode = 400;
-    throw err;
+    throwCustomError("NEED_KAKAO_TOKEN", 400);
   }
 
   const jwtToken = await userService.kakaoLogin(kakaoToken);

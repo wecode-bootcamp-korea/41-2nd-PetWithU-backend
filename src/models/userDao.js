@@ -1,9 +1,8 @@
-const { AppDataSource } = require("./data-source");
+const { appDataSource } = require("./data-source");
 
-// SDK
 const getUserIdByKakaoId = async (kakaoId) => {
   try {
-    return await AppDataSource.query(
+    const result = await appDataSource.query(
       `
     SELECT id AS userId
     FROM users
@@ -11,16 +10,15 @@ const getUserIdByKakaoId = async (kakaoId) => {
     `,
       [kakaoId]
     );
+    return result.userId;
   } catch (err) {
-    const error = new Error("GET_USER_DATA_FAILED");
-    error.statusCode = 500;
-    throw error;
+    throwCustomError("GET_USER_DATA_FAILED", 500);
   }
 };
 
 const createUser = async (kakaoId, profileImage, nickname, email) => {
   try {
-    return await AppDataSource.query(
+    return await appDataSource.query(
       `
     INSERT INTO users (
       kakao_id,
@@ -34,14 +32,11 @@ const createUser = async (kakaoId, profileImage, nickname, email) => {
       [kakaoId, profileImage, nickname, email]
     );
   } catch (err) {
-    const error = new Error("DATABASE_ERROR");
-    error.statusCode = 500;
-    throw error;
+    throwCustomError("CREATE_USER_ERROR", 500);
   }
 };
 
 module.exports = {
   getUserIdByKakaoId,
   createUser,
-  // getUserData,
 };

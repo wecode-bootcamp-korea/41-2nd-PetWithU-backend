@@ -7,7 +7,6 @@ const userDao = require("../models/userDao");
 const saltRounds = 12;
 const secretKey = process.env.SECRET_KEY;
 
-// SDK
 const kakaoLogin = async (kakaoToken) => {
   const kakaoUserInfo = await axios.get("https://kapi.kakao.com/v2/user/me", {
     headers: {
@@ -16,16 +15,25 @@ const kakaoLogin = async (kakaoToken) => {
     },
   });
 
+  if (!kakaoUserInfo) {
+    throwCustomError("NEED_KAKAO_USER_INFO", 400);
+  }
+
   const kakaoId = kakaoUserInfo.data.id;
   const profileImage = kakaoUserInfo.data.properties.profile_image || null;
   const nickname = kakaoUserInfo.data.properties.nickname || null;
-  const email = kakaoUserInfo.data.kakao_account.email;
+  const email = kakaoUserInfo.data.kakao_account.email || null;
 
-  const [{ userId }] = await userDao.getUserIdByKakaoId(kakaoId);
+  const userId = await userDao.getUserIdByKakaoId(kakaoId);
 
-  // 아직 가입되어 있지 않으면 가입 진행
   if (!userId) {
-    await userDao.createUser(kakaoId, profileImage, nickname, email);
+    const newUser = await userDao.createUser(
+      kakaoId,
+      profileImage,
+      nickname,
+      email
+    );
+    return (jwtToken = jwt.sign({ userId: newUser.insertId }, secretKey));
   }
 
   return (jwtToken = jwt.sign({ userId: userId }, secretKey));
