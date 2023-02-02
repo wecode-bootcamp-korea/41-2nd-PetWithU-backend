@@ -10,7 +10,11 @@ const getUserIdByKakaoId = async (kakaoId) => {
     `,
       [kakaoId]
     );
-    return result.userId;
+
+    if (result.length) {
+      return result[0].userId;
+    }
+    return false;
   } catch (err) {
     throwCustomError("GET_USER_DATA_FAILED", 500);
   }
@@ -29,7 +33,7 @@ const createUser = async (kakaoId, profileImage, nickname, email) => {
       ?, ?, ?, ?
     )
     `,
-      [kakaoId, profileImage, nickname, email]
+      [kakaoId, email, nickname, profileImage]
     );
   } catch (err) {
     throwCustomError("CREATE_USER_ERROR", 500);
