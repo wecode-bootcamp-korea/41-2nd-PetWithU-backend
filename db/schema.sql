@@ -87,6 +87,28 @@ CREATE TABLE `community_hashtags` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `community_image`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `community_image` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `post_detail_id` int NOT NULL,
+  `point_x` int DEFAULT NULL,
+  `point_y` int DEFAULT NULL,
+  `product_id` int DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `post_detail_id` (`post_detail_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `community_image_ibfk_1` FOREIGN KEY (`post_detail_id`) REFERENCES `community_post_details` (`id`),
+  CONSTRAINT `community_image_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `community_likes`
 --
 
@@ -118,18 +140,13 @@ CREATE TABLE `community_post_details` (
   `category_id` int NOT NULL,
   `content` varchar(1000) DEFAULT NULL,
   `image_url` varchar(255) NOT NULL,
-  `point_x` int DEFAULT NULL,
-  `point_y` int DEFAULT NULL,
-  `product_id` int DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `post_id` (`post_id`),
   KEY `category_id` (`category_id`),
-  KEY `product_id` (`product_id`),
   CONSTRAINT `community_post_details_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `community_posts` (`id`),
-  CONSTRAINT `community_post_details_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `community_categories` (`id`),
-  CONSTRAINT `community_post_details_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+  CONSTRAINT `community_post_details_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `community_categories` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -368,6 +385,7 @@ CREATE TABLE `promenade_posts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `map_id` int NOT NULL,
+  `thumbnail` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -458,11 +476,12 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230131060003'),
   ('20230131060004'),
   ('20230131060005'),
+  ('20230131070001'),
+  ('20230131070002'),
   ('20230131070003'),
   ('20230131070004'),
   ('20230131070005'),
   ('20230131070006'),
-  ('20230131070007'),
   ('20230131070008'),
   ('20230131070009'),
   ('20230131070010'),
