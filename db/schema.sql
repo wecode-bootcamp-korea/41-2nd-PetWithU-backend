@@ -94,6 +94,7 @@ CREATE TABLE `community_hashtags` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `community_image` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `post_id` int NOT NULL,
   `post_detail_id` int NOT NULL,
   `point_x` int DEFAULT NULL,
   `point_y` int DEFAULT NULL,
@@ -278,6 +279,33 @@ CREATE TABLE `products` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `promenade_arrondissement`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `promenade_arrondissement` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `city_id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `promenade_cities`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `promenade_cities` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `promenade_collections`
 --
 
@@ -345,6 +373,8 @@ CREATE TABLE `promenade_likes` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `promenade_maps` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `post_id` int NOT NULL,
+  `location_id` int NOT NULL,
   `latitude` decimal(9,6) DEFAULT NULL,
   `longitude` decimal(9,6) DEFAULT NULL,
   `text` varchar(255) DEFAULT NULL,
@@ -366,12 +396,10 @@ CREATE TABLE `promenade_post_details` (
   `post_id` int NOT NULL,
   `content` varchar(1000) DEFAULT NULL,
   `image_url` varchar(255) NOT NULL,
-  `map_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `post_id` (`post_id`),
-  CONSTRAINT `promenade_post_details_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `promenade_posts` (`id`)
+  KEY `post_id` (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -384,15 +412,14 @@ CREATE TABLE `promenade_post_details` (
 CREATE TABLE `promenade_posts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `map_id` int NOT NULL,
+  `category_id` int NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
   `thumbnail` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  KEY `map_id` (`map_id`),
-  CONSTRAINT `promenade_posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `promenade_posts_ibfk_2` FOREIGN KEY (`map_id`) REFERENCES `promenade_maps` (`id`)
+  CONSTRAINT `promenade_posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -491,5 +518,7 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230131070014'),
   ('20230131070015'),
   ('20230131070016'),
-  ('20230131070021');
+  ('20230131070021'),
+  ('202302040838085'),
+  ('202302040840085');
 UNLOCK TABLES;
