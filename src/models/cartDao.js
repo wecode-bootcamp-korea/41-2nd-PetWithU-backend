@@ -22,6 +22,26 @@ const upsertCart = async (userId, productId, quantity) => {
   }
 };
 
+// 2. 장바구니 상품 조회
+const readCart = async (userId) => {
+  try {
+    return (cartList = await appDataSource.query(
+      `SELECT
+          carts.id AS cartId,
+          products.id AS productId,
+          products.name AS productName, 
+          products.thumbnail AS thumbnail,
+          products.price AS price, 
+          carts.quantity AS productQuantity
+      FROM carts
+      INNER JOIN products ON products.id = carts.product_id
+      WHERE carts.user_id = ?;`,
+      [userId]
+    ));
+  } catch (err) {
+    throwCustomError("DB_SELECT_FAILED", 500);
+  }
+};
 // 99. 재고 조회
 const getSalesVolume = async (productId) => {
   try {
@@ -37,8 +57,8 @@ const getSalesVolume = async (productId) => {
     throwCustomError("GET_SALES_VOLUME_FAILED", 400);
   }
 };
-
 module.exports = {
   upsertCart,
+  readCart,
   getSalesVolume,
 };

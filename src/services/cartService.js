@@ -13,6 +13,12 @@ const upsertCart = async (userId, productId, quantity) => {
   return await cartDao.upsertCart(userId, productId, quantity);
 };
 
+// 2. 장바구니 조회
+const readCart = async (userId) => {
+  return await cartDao.readCart(userId);
+};
+
 module.exports = {
   upsertCart,
+  readCart,
 };

@@ -8,6 +8,8 @@ const { validateToken } = require("../utils/auth.js");
 
 // 1. 장바구니 상품 추가 / 수량 수정 (주문수량 증가/감소)
 router.post("/", validateToken, cartController.upsertCart);
+// 2. 장바구니 상품 조회
+router.get("/", validateToken, cartController.readCart);
 
 module.exports = {
   router,
