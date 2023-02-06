@@ -219,6 +219,14 @@ const toggleCollectionState = async (userId, postId) => {
   }
 };
 
+const imagePost = async () => {
+  try {
+    console.log("S3에 url 저장");
+  } catch (err) {
+    throwCustomError("CREATE_POST_FAIL", 500);
+  }
+};
+
 module.exports = {
   createPost,
   readPost,
@@ -226,4 +234,5 @@ module.exports = {
   getPostId,
   toggleLikeState,
   toggleCollectionState,
+  imagePost,
 };

@@ -1,6 +1,6 @@
 const express = require("express");
 const communityController = require("../controllers/communityController");
-
+const { upload } = require("../utils/multer");
 const router = express.Router();
 
 // // 유저 로그인 여부 검증
@@ -23,6 +23,7 @@ router.post(
   validateToken,
   communityController.toggleCollectionState
 );
+router.post("/image", upload.single("image"), communityController.imagePost);
 
 module.exports = {
   router,

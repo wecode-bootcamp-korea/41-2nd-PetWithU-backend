@@ -30,10 +30,15 @@ const toggleCollectionState = async (userId, postId) => {
   return await communityDao.toggleCollectionState(userId, postId);
 };
 
+const imagePost = async (imageURL) => {
+  await communityDao.imagePost(imageURL);
+};
+
 module.exports = {
   createPost,
   getPostDetail,
   getFeedPosts,
   toggleLikeState,
   toggleCollectionState,
+  imagePost,
 };

@@ -60,10 +60,19 @@ const toggleCollectionState = asyncErrorHandler(async (req, res) => {
   return res.status(201).json({ message: "TOGGLE_COLLECTION_SUCCESS" });
 });
 
+// 이미지 업로드
+const imagePost = asyncErrorHandler(async (req, res) => {
+  console.log("controllers");
+  const imageURL = req.file.location;
+  await communityService.imagePost(imageURL);
+  return res.status(200).json({ img: req.file.location });
+});
+
 module.exports = {
   createPost,
   getPostDetail,
   getFeedPosts,
   toggleLikeState,
   toggleCollectionState,
+  imagePost,
 };
