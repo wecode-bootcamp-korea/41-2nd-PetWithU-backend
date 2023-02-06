@@ -18,7 +18,13 @@ const readCart = async (userId) => {
   return await cartDao.readCart(userId);
 };
 
+// 3. 장바구니 아이템 삭제
+const deleteCart = async (cartIdList) => {
+  await cartDao.deleteCart(cartIdList);
+};
+
 module.exports = {
   upsertCart,
   readCart,
+  deleteCart,
 };

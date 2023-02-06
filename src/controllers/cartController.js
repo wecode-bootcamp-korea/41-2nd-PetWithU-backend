@@ -18,7 +18,20 @@ const readCart = asyncErrorHandler(async (req, res) => {
   return res.status(200).json(cartList);
 });
 
+// 3. 장바구니 상품 삭제
+const deleteCart = asyncErrorHandler(async (req, res) => {
+  // 삭제할 장바구니 id 를 리스트 형태로 받는다.
+  const cartIdList = req.body;
+
+  if (!cartIdList) {
+    throwCustomError("KEY_ERROR", 400);
+  }
+  await cartService.deleteCart(cartIdList);
+  return res.status(204).json({ message: "DELETE_CART_SUCCESS" });
+});
+
 module.exports = {
   upsertCart,
   readCart,
+  deleteCart,
 };

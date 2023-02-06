@@ -42,6 +42,23 @@ const readCart = async (userId) => {
     throwCustomError("DB_SELECT_FAILED", 500);
   }
 };
+
+// 3. 장바구니 상품 삭제
+const deleteCart = async (cartIdList) => {
+  try {
+    await appDataSource.query(
+      `DELETE FROM
+        carts
+      WHERE
+        carts.id IN (?);
+      `,
+      [cartIdList]
+    );
+  } catch (err) {
+    throwCustomError("DB_DELETE_FAILED", 500);
+  }
+};
+
 // 99. 재고 조회
 const getSalesVolume = async (productId) => {
   try {
@@ -61,4 +78,5 @@ module.exports = {
   upsertCart,
   readCart,
   getSalesVolume,
+  deleteCart,
 };
