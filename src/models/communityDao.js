@@ -140,9 +140,59 @@ const getPostId = async (userIdList, page, pagination) => {
     throwCustomError("GET_POST_ID_FAIL", 500);
   }
 };
+
+const toggleLikeState = async (userId, postId) => {
+  try {
+    // DB 테이블에 기존에 좋아요 row 가 있는지 확인
+    const [{ likeState }] = await appDataSource.query(
+      `SELECT EXISTS (SELECT id FROM community_likes WHERE user_id = ${userId} AND post_id = ${postId}) AS likeState;
+        `
+    );
+
+    // 좋아요가 눌러져 있으면 DB에서 삭제
+    if (parseInt(likeState)) {
+      await appDataSource.query(
+        `DELETE from community_likes WHERE user_id = ${userId} AND post_id = ${postId}`
+      );
+    } // 좋아요가 없으면 새로 생성
+    else {
+      await appDataSource.query(
+        `INSERT INTO community_likes (user_id, post_id) VALUES (${userId}, ${postId})`
+      );
+    }
+  } catch (err) {
+    throwCustomError("LIKE_FAIL", 500);
+  }
+};
+
+const toggleCollectionState = async (userId, postId) => {
+  try {
+    // DB 테이블에 기존에 스크랩 row 가 있는지 확인
+    const [{ collectionState }] = await appDataSource.query(
+      `SELECT EXISTS (SELECT id FROM community_collections WHERE user_id = ${userId} AND post_id = ${postId}) AS collectionState;
+        `
+    );
+    // 스크랩이 눌러져 있으면 DB에서 삭제
+    if (parseInt(collectionState)) {
+      await appDataSource.query(
+        `DELETE from community_collections WHERE user_id = ${userId} AND post_id = ${postId}`
+      );
+    } // 스크랩이 없으면 새로 생성
+    else {
+      await appDataSource.query(
+        `INSERT INTO community_collections (user_id, post_id) VALUES (${userId}, ${postId})`
+      );
+    }
+  } catch (err) {
+    throwCustomError("COLLECTION_FAIL", 500);
+  }
+};
+
 module.exports = {
   createPost,
   readPost,
   getUserId,
   getPostId,
+  toggleLikeState,
+  toggleCollectionState,
 };
