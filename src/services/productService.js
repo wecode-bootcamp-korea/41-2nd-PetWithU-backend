@@ -16,6 +16,11 @@ const searchProducts = async (
   );
 };
 
+const getProductDetails = async (productId) => {
+  return await productDao.getProductDetails(productId);
+};
+
 module.exports = {
   searchProducts,
+  getProductDetails,
 };
