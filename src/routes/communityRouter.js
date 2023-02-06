@@ -12,6 +12,17 @@ router.post("/", validateToken, communityController.createPost);
 router.get("/:postId", validateToken, communityController.getPostDetail);
 // 커뮤니티 피드 게시글 조회
 router.get("/", validateToken, communityController.getFeedPosts);
+router.post("", validateToken, communityController.createPost);
+router.post(
+  "/like/:postId",
+  validateToken,
+  communityController.toggleLikeState
+);
+router.post(
+  "/collection/:postId",
+  validateToken,
+  communityController.toggleCollectionState
+);
 
 module.exports = {
   router,

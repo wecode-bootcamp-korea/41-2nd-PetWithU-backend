@@ -22,8 +22,18 @@ const getFeedPosts = async (userId, postId, page, pagination) => {
   return postList;
 };
 
+const toggleLikeState = async (userId, postId) => {
+  return await communityDao.toggleLikeState(userId, postId);
+};
+
+const toggleCollectionState = async (userId, postId) => {
+  return await communityDao.toggleCollectionState(userId, postId);
+};
+
 module.exports = {
   createPost,
   getPostDetail,
   getFeedPosts,
+  toggleLikeState,
+  toggleCollectionState,
 };
