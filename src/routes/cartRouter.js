@@ -10,6 +10,8 @@ const { validateToken } = require("../utils/auth.js");
 router.post("/", validateToken, cartController.upsertCart);
 // 2. 장바구니 상품 조회
 router.get("/", validateToken, cartController.readCart);
+// 3. 장바구니 상품 삭제
+router.delete("/", validateToken, cartController.deleteCart);
 
 module.exports = {
   router,
