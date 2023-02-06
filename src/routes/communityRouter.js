@@ -7,6 +7,16 @@ const router = express.Router();
 const { validateToken } = require("../utils/auth.js");
 
 router.post("", validateToken, communityController.createPost);
+router.post(
+  "/like/:postId",
+  validateToken,
+  communityController.toggleLikeState
+);
+router.post(
+  "/collection/:postId",
+  validateToken,
+  communityController.toggleCollectionState
+);
 
 module.exports = {
   router,
