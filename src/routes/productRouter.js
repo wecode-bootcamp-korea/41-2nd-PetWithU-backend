@@ -7,6 +7,7 @@ const router = express.Router();
 // url/search?keyword="강아지 사료"
 // 상세 페이지 & 옵션
 router.get("/search", productController.searchProducts);
+router.get("/:productId", productController.getProductDetails);
 
 module.exports = {
   router,
