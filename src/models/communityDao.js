@@ -1,6 +1,6 @@
 const { appDataSource } = require("./data-source");
 const { throwCustomError } = require("../utils/errorHandling");
-const createPost = async (userId, postList) => {
+const createPost = async (userId, postList, s3Images) => {
   try {
     await appDataSource.query(
       `INSERT INTO community_posts(user_id)
@@ -13,20 +13,25 @@ const createPost = async (userId, postList) => {
       `SELECT LAST_INSERT_ID() AS postId;`
     );
 
-    for (postObj of postList) {
+    for (i = 0; i < postList.length; i++) {
       await appDataSource.query(
         `INSERT INTO community_post_details
         (post_id, category_id, content, image_url)
         VALUES (?, ?, ?, ?)
           `,
-        [postId, postObj.categoryId, postObj.content, postObj.plusItem.imageUrl]
+        [
+          postId,
+          postList[i].categoryId,
+          postList[i].content,
+          s3Images[i].location,
+        ]
       );
 
       const [{ postDetailId }] = await appDataSource.query(
         `SELECT LAST_INSERT_ID() AS postDetailId;`
       );
 
-      const infoList = postObj.plusItem.infoList;
+      const infoList = postList[i].plusItem.infoList;
 
       const image_bulk_arr = [];
       for (infoObj of infoList) {
@@ -45,7 +50,7 @@ const createPost = async (userId, postList) => {
       await appDataSource.query(imageSql, [image_bulk_arr]);
 
       const hash_bulk_arr = [];
-      for (hash of postObj.hashtag) {
+      for (hash of postList[i].hashtag) {
         const tmp = [userId, postId, postDetailId, hash];
         hash_bulk_arr.push(tmp);
       }
@@ -251,5 +256,5 @@ module.exports = {
   toggleLikeState,
   toggleCollectionState,
   createReview,
-  deleteReview
+  deleteReview,
 };
