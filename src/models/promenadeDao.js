@@ -159,9 +159,34 @@ const toggleCollectionState = async (userId, postId) => {
   }
 };
 
+const createReview = async (userId, postId, content) => {
+  try {
+    await appDataSource.query(
+      `INSERT INTO promenade_reviews(user_id, post_id, content) 
+      VALUES (?, ?, ?)
+        `,
+      [userId, postId, content]
+    );
+  } catch (err) {
+    throwCustomError("CREATE_POST_FAIL", 400);
+  }
+};
+
+const deleteReview = async (reviewId) => {
+  try {
+    await appDataSource.query(
+      `DELETE from promenade_reviews WHERE id = ${reviewId}`
+    );
+  } catch (err) {
+    throwCustomError("DELETE_REVIEW_FAIL", 400);
+  }
+};
+
 module.exports = {
   readPost,
   getPostId,
   toggleLikeState,
   toggleCollectionState,
+  createReview,
+  deleteReview,
 };

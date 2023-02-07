@@ -65,9 +65,35 @@ const toggleCollectionState = asyncErrorHandler(async (req, res) => {
   return res.status(201).json({ message: "TOGGLE_COLLECTION_SUCCESS" });
 });
 
+// 댓글 추가
+const createReview = asyncErrorHandler(async (req, res) => {
+  // userId, postId, content 받기
+  const { postId, content } = req.body;
+
+  if (!postId || !content) {
+    throwCustomError("KEY_ERROR", 400);
+  }
+  await promenadeService.createReview(req.userId, postId, content);
+  return res.status(201).json({ message: "CREATE_REVIEW_SUCCESS" });
+});
+
+// 댓글 삭제
+const deleteReview = asyncErrorHandler(async (req, res) => {
+  // postList : [{게시글 정보}, { }...]
+  const { reviewId } = req.params;
+
+  if (!reviewId) {
+    throwCustomError("KEY_ERROR", 400);
+  }
+  await promenadeService.deleteReview(reviewId);
+  return res.status(204).json({ message: "DELETE_REVIEW_SUCCESS" });
+});
+
 module.exports = {
   getPostDetail,
   getFeedPosts,
   toggleLikeState,
   toggleCollectionState,
+  createReview,
+  deleteReview,
 };
