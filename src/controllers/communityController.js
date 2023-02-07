@@ -4,13 +4,20 @@ const { throwCustomError } = require("../utils/errorHandling");
 
 // 1. 커뮤니티 글쓰기
 const createPost = asyncErrorHandler(async (req, res) => {
-  // postList : [{게시글 정보}, { }...]
-  const { postList } = req.body;
+  const { postList } = JSON.parse(req.body.postList);
+
+  // const s3List = req.files.location;
+  const s3Images = req.files;
 
   if (!postList) {
     throwCustomError("EMPTY_POST_LIST", 400);
   }
-  await communityService.createPost(req.userId, postList);
+
+  if (!s3Images) {
+    throwCustomError("GET_FROM_S3_FAIL", 400);
+  }
+
+  await communityService.createPost(req.userId, postList, s3Images);
   return res.status(201).json({ message: "CREATE_POST_SUCCESS" });
 });
 
@@ -91,5 +98,5 @@ module.exports = {
   toggleLikeState,
   toggleCollectionState,
   createReview,
-  deleteReview
+  deleteReview,
 };

@@ -1,7 +1,7 @@
 const communityDao = require("../models/communityDao");
 
-const createPost = async (userId, postList) => {
-  return await communityDao.createPost(userId, postList);
+const createPost = async (userId, postList, s3Images) => {
+  return await communityDao.createPost(userId, postList, s3Images);
 };
 
 const getPostDetail = async (userId, postId) => {
@@ -45,5 +45,5 @@ module.exports = {
   toggleLikeState,
   toggleCollectionState,
   createReview,
-  deleteReview
+  deleteReview,
 };
