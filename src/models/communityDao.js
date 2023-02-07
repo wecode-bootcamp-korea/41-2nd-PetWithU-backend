@@ -1,30 +1,61 @@
 const { appDataSource } = require("./data-source");
 const { throwCustomError } = require("../utils/errorHandling");
-
 const createPost = async (userId, postList) => {
   try {
-    for (obj of postList) {
-      await appDataSource.query(
-        `INSERT INTO 
-        community_posts(user_id) 
-        VALUES ${obj.userId}
-          `
-      );
+    await appDataSource.query(
+      `INSERT INTO community_posts(user_id)
+      VALUES (?)
+        `,
+      [userId]
+    );
 
-      const [{ postId }] = await appDataSource.query(
-        `SELECT LAST_INSERT_ID() AS postId;`
-      );
+    const [{ postId }] = await appDataSource.query(
+      `SELECT LAST_INSERT_ID() AS postId;`
+    );
 
+    for (postObj of postList) {
       await appDataSource.query(
-        `INSERT INTO 
-        community_post_details(post_id, category_id, content, image_url, product_id, point_x, point_y) 
+        `INSERT INTO community_post_details
+        (post_id, category_id, content, image_url)
         VALUES (?, ?, ?, ?)
           `,
-        [list.productId, list.productOptionId, list.quantity, orderId]
+        [postId, postObj.categoryId, postObj.content, postObj.plusItem.imageUrl]
       );
+
+      const [{ postDetailId }] = await appDataSource.query(
+        `SELECT LAST_INSERT_ID() AS postDetailId;`
+      );
+
+      const infoList = postObj.plusItem.infoList;
+
+      const image_bulk_arr = [];
+      for (infoObj of infoList) {
+        const tmp = [
+          postId,
+          postDetailId,
+          infoObj.productId,
+          infoObj.x,
+          infoObj.y,
+        ];
+        image_bulk_arr.push(tmp);
+      }
+
+      const imageSql =
+        "INSERT INTO community_image (post_id, post_detail_id, product_id, point_x, point_y ) VALUES ?";
+      await appDataSource.query(imageSql, [image_bulk_arr]);
+
+      const hash_bulk_arr = [];
+      for (hash of postObj.hashtag) {
+        const tmp = [userId, postId, postDetailId, hash];
+        hash_bulk_arr.push(tmp);
+      }
+
+      const hashSql =
+        "INSERT INTO community_hashtags (user_id, post_id, post_detail_id, hashtag) VALUES ?";
+      await appDataSource.query(hashSql, [hash_bulk_arr]);
     }
   } catch (err) {
-    throwCustomError("EMPTY_POST_LIST", 500);
+    throwCustomError("CREATE_POST_FAIL", 500);
   }
 };
 
