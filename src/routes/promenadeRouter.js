@@ -16,6 +16,18 @@ router.get("/:postId", validateToken, promenadeController.getPostDetail);
 // url/city=2&arrondissement=1&page=1&pagination=3
 router.get("/", validateToken, promenadeController.getFeedPosts);
 
+// 좋아요 / 스크랩
+router.post(
+  "/like/:postId",
+  validateToken,
+  promenadeController.toggleLikeState
+);
+router.post(
+  "/collection/:postId",
+  validateToken,
+  promenadeController.toggleCollectionState
+);
+
 module.exports = {
   router,
 };
