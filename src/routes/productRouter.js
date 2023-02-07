@@ -9,6 +9,9 @@ const router = express.Router();
 router.get("/search", productController.searchProducts);
 router.get("/:productId", productController.getProductDetails);
 
+// (상품) 메인페이지
+router.get("/", productController.getMainProducts);
+
 module.exports = {
   router,
 };
