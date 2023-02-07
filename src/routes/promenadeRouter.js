@@ -28,6 +28,15 @@ router.post(
   promenadeController.toggleCollectionState
 );
 
+// 댓글 추가
+router.post("/review", validateToken, promenadeController.createReview);
+// 댓글 삭제
+router.delete(
+  "/review/:reviewId",
+  validateToken,
+  promenadeController.deleteReview
+);
+
 module.exports = {
   router,
 };

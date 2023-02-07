@@ -34,9 +34,19 @@ const toggleCollectionState = async (userId, postId) => {
   return await promenadeDao.toggleCollectionState(userId, postId);
 };
 
+const createReview = async (userId, postId, content) => {
+  return await promenadeDao.createReview(userId, postId, content);
+};
+
+const deleteReview = async (reviewId) => {
+  return await promenadeDao.deleteReview(reviewId);
+};
+
 module.exports = {
   getPostDetail,
   getFeedPosts,
   toggleLikeState,
   toggleCollectionState,
+  createReview,
+  deleteReview,
 };
