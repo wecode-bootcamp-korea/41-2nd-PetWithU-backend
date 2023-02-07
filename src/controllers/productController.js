@@ -26,7 +26,13 @@ const getProductDetails = asyncErrorHandler(async (req, res) => {
   return res.status(200).json(ProductData);
 });
 
+const getMainProducts = asyncErrorHandler(async (req, res) => {
+  const productObj = await productService.getMainProducts();
+  return res.status(200).json(productObj);
+});
+
 module.exports = {
   searchProducts,
   getProductDetails,
+  getMainProducts,
 };

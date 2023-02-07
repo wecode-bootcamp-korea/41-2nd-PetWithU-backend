@@ -46,6 +46,38 @@ const getProductDetails = async (productId) => {
         LEFT JOIN product_images pi ON p.id = pi.product_id
         WHERE p.id = ${productId}
         GROUP BY p.id`
+        );
+  } catch (err) {
+    throwCustomError("DB_SELECT_FAILED", 500);
+  }
+};
+
+const getTodayProducts = async () => {
+  try {
+    return await appDataSource.query(
+      `SELECT
+        id, 
+        thumbnail, 
+        name, 
+        price
+      FROM (SELECT *, RANK() OVER (PARTITION BY category_id ORDER BY sales_volume DESC) AS number FROM products) AS best
+      WHERE best.number = 1`
+    );
+  } catch (err) {
+    throwCustomError("DB_SELECT_FAILED", 500);
+  }
+};
+
+const getAllProducts = async () => {
+  try {
+    return await appDataSource.query(
+      `SELECT
+        id, 
+        thumbnail, 
+        name, 
+        price
+      FROM products
+      ORDER BY sales_volume DESC`
     );
   } catch (err) {
     throwCustomError("DB_SELECT_FAILED", 500);
@@ -55,4 +87,6 @@ const getProductDetails = async (productId) => {
 module.exports = {
   searchProducts,
   getProductDetails,
+  getTodayProducts,
+  getAllProducts,
 };
