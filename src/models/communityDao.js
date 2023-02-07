@@ -117,6 +117,7 @@ const readPost = async (userId, postId) => {
     // 리뷰 정보 가져오기 (시간순 정렬)
     const reviews = await appDataSource.query(
       `SELECT
+        cr.id AS reviewId,
         u.id AS userId,
         u.nickname,
         u.profile_image AS profileImage,
