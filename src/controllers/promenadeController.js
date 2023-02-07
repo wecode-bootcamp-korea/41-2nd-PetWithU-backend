@@ -43,7 +43,31 @@ const getFeedPosts = asyncErrorHandler(async (req, res) => {
   return res.status(200).json({ postList });
 });
 
+// 3. 산책로 게시글 - like 누르기
+const toggleLikeState = asyncErrorHandler(async (req, res) => {
+  const { postId } = req.params;
+
+  if (!postId) {
+    throwCustomError("KEY_ERROR", 400);
+  }
+  await promenadeService.toggleLikeState(req.userId, postId);
+  return res.status(201).json({ message: "TOGGLE_LIKE_SUCCESS" });
+});
+
+// 4. 산책로 게시글 - 스크랩 누르기
+const toggleCollectionState = asyncErrorHandler(async (req, res) => {
+  const { postId } = req.params;
+
+  if (!postId) {
+    throwCustomError("KEY_ERROR", 400);
+  }
+  await promenadeService.toggleCollectionState(req.userId, postId);
+  return res.status(201).json({ message: "TOGGLE_COLLECTION_SUCCESS" });
+});
+
 module.exports = {
   getPostDetail,
   getFeedPosts,
+  toggleLikeState,
+  toggleCollectionState,
 };

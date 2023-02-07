@@ -26,7 +26,17 @@ const getFeedPosts = async (userId, city, arrondissement, page, pagination) => {
   return postList;
 };
 
+const toggleLikeState = async (userId, postId) => {
+  return await promenadeDao.toggleLikeState(userId, postId);
+};
+
+const toggleCollectionState = async (userId, postId) => {
+  return await promenadeDao.toggleCollectionState(userId, postId);
+};
+
 module.exports = {
   getPostDetail,
   getFeedPosts,
+  toggleLikeState,
+  toggleCollectionState,
 };
