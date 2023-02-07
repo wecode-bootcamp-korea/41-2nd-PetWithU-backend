@@ -16,7 +16,7 @@ const getUserIdByKakaoId = async (kakaoId) => {
     }
     return false;
   } catch (err) {
-    throwCustomError("GET_USER_DATA_FAILED", 500);
+    throwCustomError("GET_USER_DATA_FAILED", 400);
   }
 };
 
@@ -36,11 +36,26 @@ const createUser = async (kakaoId, profileImage, nickname, email) => {
       [kakaoId, email, nickname, profileImage]
     );
   } catch (err) {
-    throwCustomError("CREATE_USER_ERROR", 500);
+    throwCustomError("CREATE_USER_ERROR", 400);
+  }
+};
+
+const getFollower = async (userId) => {
+  try {
+    const [{ userIdList }] = await appDataSource.query(
+      `SELECT JSON_ARRAYAGG(user_id) AS userIdList FROM follow_users WHERE following_user_id =${userId}`
+    );
+    return await appDataSource.query(
+      `SELECT id, nickname, profile_image AS profileImage FROM users WHERE id IN (?) ORDER BY created_at DESC LIMIT 10`,
+      [userIdList]
+    );
+  } catch (err) {
+    throwCustomError("GET_FOLLOWER_ERROR", 400);
   }
 };
 
 module.exports = {
   getUserIdByKakaoId,
   createUser,
+  getFollower,
 };

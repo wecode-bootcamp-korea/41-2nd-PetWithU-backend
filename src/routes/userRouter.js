@@ -8,6 +8,8 @@ const { validateToken } = require("../utils/auth.js");
 
 router.post("/kakaologin", userController.kakaoLogin);
 
+router.get("/follower", validateToken, userController.getFollower);
+
 module.exports = {
   router,
 };
