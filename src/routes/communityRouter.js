@@ -24,6 +24,9 @@ router.post(
   communityController.toggleCollectionState
 );
 
+router.post("/review", validateToken, communityController.createReview);
+router.delete("/review/:reviewId", validateToken, communityController.deleteReview);
+
 module.exports = {
   router,
 };
