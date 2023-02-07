@@ -37,6 +37,11 @@ const kakaoLogin = async (kakaoToken) => {
   return (jwtToken = jwt.sign({ userId: userId }, secretKey));
 };
 
+const getFollower = async (userId) => {
+  return await userDao.getFollower(userId);
+};
+
 module.exports = {
   kakaoLogin,
+  getFollower,
 };

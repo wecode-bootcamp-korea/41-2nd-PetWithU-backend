@@ -12,6 +12,12 @@ const kakaoLogin = asyncErrorHandler(async (req, res) => {
   return res.status(201).json({ jwtToken: jwtToken });
 });
 
+const getFollower = asyncErrorHandler(async (req, res) => {
+  const followerList = await userService.getFollower(req.userId);
+  return res.status(200).json(followerList);
+});
+
 module.exports = {
   kakaoLogin,
+  getFollower,
 };
