@@ -30,10 +30,20 @@ const toggleCollectionState = async (userId, postId) => {
   return await communityDao.toggleCollectionState(userId, postId);
 };
 
+const createReview = async (userId, postId, content) => {
+  return await communityDao.createReview(userId, postId, content);
+};
+
+const deleteReview = async (reviewId) => {
+  return await communityDao.deleteReview(reviewId);
+};
+
 module.exports = {
   createPost,
   getPostDetail,
   getFeedPosts,
   toggleLikeState,
   toggleCollectionState,
+  createReview,
+  deleteReview
 };

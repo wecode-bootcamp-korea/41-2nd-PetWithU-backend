@@ -55,7 +55,7 @@ const createPost = async (userId, postList) => {
       await appDataSource.query(hashSql, [hash_bulk_arr]);
     }
   } catch (err) {
-    throwCustomError("CREATE_POST_FAIL", 500);
+    throwCustomError("CREATE_POST_FAIL", 400);
   }
 };
 
@@ -219,6 +219,29 @@ const toggleCollectionState = async (userId, postId) => {
   }
 };
 
+const createReview = async (userId, postId, content) => {
+  try {
+    await appDataSource.query(
+      `INSERT INTO community_reviews(user_id, post_id, content) 
+      VALUES (?, ?, ?)
+        `,
+      [userId, postId, content]
+    );
+  } catch (err) {
+    throwCustomError("CREATE_POST_FAIL", 400);
+  }
+};
+
+const deleteReview = async (reviewId) => {
+  try {
+    await appDataSource.query(
+      `DELETE from community_reviews WHERE id = ${reviewId}`
+    );
+  } catch (err) {
+    throwCustomError("DELETE_REVIEW_FAIL", 400);
+  }
+};
+
 module.exports = {
   createPost,
   readPost,
@@ -226,4 +249,6 @@ module.exports = {
   getPostId,
   toggleLikeState,
   toggleCollectionState,
+  createReview,
+  deleteReview
 };
