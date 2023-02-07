@@ -6,7 +6,7 @@ const router = express.Router();
 const { validateToken } = require("../utils/auth.js");
 
 // 게시글 상세 조회
-router.get("/:postId", validateToken, promenadeController.getPostDetail);
+router.get("/detail/:postId", validateToken, promenadeController.getPostDetail);
 
 // 커뮤니티 피드 게시글 조회
 // '서울시' 카테고리 = 1
@@ -35,6 +35,12 @@ router.delete(
   "/review/:reviewId",
   validateToken,
   promenadeController.deleteReview
+);
+
+router.get(
+  "/collection",
+  validateToken,
+  promenadeController.getPromenadeCollecion
 );
 
 module.exports = {

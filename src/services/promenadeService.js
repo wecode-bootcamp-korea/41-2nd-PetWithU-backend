@@ -13,14 +13,11 @@ const getFeedPosts = async (userId, city, arrondissement, page, pagination) => {
   );
 
   const postList = [];
+  const flag = "feed";
 
   for ({ postId } of postIdList) {
     const promenadeFeedFlag = true;
-    const postData = await promenadeDao.readPost(
-      userId,
-      postId,
-      promenadeFeedFlag
-    );
+    const postData = await promenadeDao.readPost(userId, postId, flag);
     postList.push(postData);
   }
   return postList;
@@ -42,6 +39,23 @@ const deleteReview = async (reviewId) => {
   return await promenadeDao.deleteReview(reviewId);
 };
 
+const getPromenadeCollecion = async (userId, page, pagination) => {
+  const postIdList = await promenadeDao.getCollectionPostId(
+    userId,
+    page,
+    pagination
+  );
+
+  const postList = [];
+  const flag = "collection";
+
+  for (postId of postIdList) {
+    const postData = await promenadeDao.readPost(userId, postId, flag);
+    postList.push(postData);
+  }
+  return postList;
+};
+
 module.exports = {
   getPostDetail,
   getFeedPosts,
@@ -49,4 +63,5 @@ module.exports = {
   toggleCollectionState,
   createReview,
   deleteReview,
+  getPromenadeCollecion,
 };

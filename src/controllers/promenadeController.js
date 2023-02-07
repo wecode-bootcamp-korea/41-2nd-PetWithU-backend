@@ -93,6 +93,17 @@ const deleteReview = asyncErrorHandler(async (req, res) => {
   return res.status(204).json({ message: "DELETE_REVIEW_SUCCESS" });
 });
 
+// 산책로 게시글 모아보기
+const getPromenadeCollecion = asyncErrorHandler(async (req, res) => {
+  const { page, pagination } = req.query;
+  const collections = await promenadeService.getPromenadeCollecion(
+    req.userId,
+    page,
+    pagination
+  );
+  return res.status(200).json(collections);
+});
+
 module.exports = {
   getPostDetail,
   getFeedPosts,
@@ -100,4 +111,5 @@ module.exports = {
   toggleCollectionState,
   createReview,
   deleteReview,
+  getPromenadeCollecion,
 };

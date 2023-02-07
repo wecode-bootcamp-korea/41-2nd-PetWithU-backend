@@ -2,7 +2,7 @@ const { appDataSource } = require("./data-source");
 const { throwCustomError } = require("../utils/errorHandling");
 
 // 2. 산책로 피드 조회
-const readPost = async (userId, postId, promenadeFeedFlag) => {
+const readPost = async (userId, postId, flag) => {
   try {
     const [postInfo] = await appDataSource.query(
       `SELECT
@@ -25,9 +25,9 @@ const readPost = async (userId, postId, promenadeFeedFlag) => {
         WHERE pp.id = ${postId}`
     );
 
-    // 해당 Flag === True 면 postInfo 만 리턴
+    // 해당 Flag === feed 면 피드 정보 추출이므로 postInfo 만 리턴
     // False 면 포스트 상세페이지를 조회하므로 지도, 리뷰 등등 전부 리턴.
-    if (promenadeFeedFlag) {
+    if (flag === "feed") {
       return postInfo;
     }
 
@@ -41,6 +41,13 @@ const readPost = async (userId, postId, promenadeFeedFlag) => {
       FROM promenade_maps 
       WHERE promenade_maps.post_id = ${postId}`
     );
+
+    // 해당 Flag === collection 이면 스크랩 모아보기 기능이므로 postMaps 까지 리턴
+    // False 면 포스트 상세페이지를 조회하므로 지도, 리뷰 등등 전부 리턴.
+    if (flag === "collection") {
+      const collectionObj = { postInfo: postInfo, postMaps: postMaps };
+      return collectionObj;
+    }
 
     // 콘텐츠 정보 조회
     const postContent = await appDataSource.query(
@@ -186,6 +193,23 @@ const deleteReview = async (reviewId) => {
     throwCustomError("DELETE_REVIEW_FAIL", 400);
   }
 };
+const getCollectionPostId = async (userId, page, pagination) => {
+  try {
+    // 우선 컬렉션에 저장해 둔 포스트 ID 추출
+    // 추후 서윤님 기획에 맞춰 포스트 피드처럼 조회할지, 지도 정보를 포함하여 조회할지 등등을 정한다.
+    const [{ postIdList }] = await appDataSource.query(
+      `SELECT JSON_ARRAYAGG(post_id) AS postIdList 
+      FROM promenade_collections 
+      WHERE user_id = ${userId} 
+      ORDER BY created_at DESC 
+      LIMIT ${(page - 1) * pagination}, ${pagination}`
+    );
+
+    return postIdList;
+  } catch (err) {
+    throwCustomError("GET_POST_ID_FAIL", 500);
+  }
+};
 
 module.exports = {
   readPost,
@@ -194,4 +218,5 @@ module.exports = {
   toggleCollectionState,
   createReview,
   deleteReview,
+  getCollectionPostId,
 };
