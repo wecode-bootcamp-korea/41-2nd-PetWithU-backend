@@ -23,7 +23,7 @@ const getPostDetail = asyncErrorHandler(async (req, res) => {
   }
 
   const postList = await communityService.getPostDetail(req.userId, postId);
-  return res.status(201).json(postList);
+  return res.status(200).json(postList);
 });
 
 // 3. 커뮤니티 피드 조회
@@ -35,7 +35,7 @@ const getFeedPosts = asyncErrorHandler(async (req, res) => {
     page,
     pagination
   );
-  return res.status(201).json({ postList });
+  return res.status(200).json({ postList });
 });
 
 // 4. 커뮤니티 게시글 - like 누르기
