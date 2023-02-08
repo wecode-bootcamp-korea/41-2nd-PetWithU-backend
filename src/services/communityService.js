@@ -9,7 +9,7 @@ const getPostDetail = async (userId, postId) => {
   return await communityDao.readPost(userId, postId, flag);
 };
 
-const getFeedPosts = async (userId, postId, page, pagination) => {
+const getFeedPosts = async (userId, page, pagination) => {
   const userIdList = await communityDao.getUserId(userId);
   userIdList.push(userId);
   const postIdList = await communityDao.getPostId(userIdList, page, pagination);
