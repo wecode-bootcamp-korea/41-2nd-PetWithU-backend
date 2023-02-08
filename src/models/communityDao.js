@@ -244,6 +244,11 @@ const createReview = async (userId, postId, content) => {
         `,
       [userId, postId, content]
     );
+
+    const [reviewer] = await appDataSource.query(
+      `SELECT nickname, profile_image AS profileImage FROM users WHERE id = ${userId}`
+    );
+    return reviewer;
   } catch (err) {
     throwCustomError("CREATE_POST_FAIL", 400);
   }
