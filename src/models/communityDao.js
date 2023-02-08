@@ -64,7 +64,7 @@ const createPost = async (userId, postList, s3Images) => {
   }
 };
 
-const readPost = async (userId, postId) => {
+const readPost = async (userId, postId, flag) => {
   try {
     const [postHeader] = await appDataSource.query(
       `SELECT
@@ -102,6 +102,16 @@ const readPost = async (userId, postId) => {
       WHERE cp.id = ${postId}
       GROUP BY cpd.id`
     );
+
+    // 해당 Flag === collecion 이면 피드 정보 추출이므로 postHeader 와 postContent 만 리턴
+    // False 면 해시태그, 리뷰까지 전부 리턴
+    if (flag === "collection") {
+      const collectionObj = {
+        postHeader: postHeader,
+        postContent: postContent,
+      };
+      return collectionObj;
+    }
 
     // community_hashtags 싹 뽑아오기
     const hashtags = await appDataSource.query(
@@ -141,7 +151,7 @@ const readPost = async (userId, postId) => {
     };
     return postObj;
   } catch (err) {
-    throwCustomError("EMPTY_POST_LIST", 500);
+    throwCustomError("EMPTY_POST_LIST", 400);
   }
 };
 
@@ -154,7 +164,7 @@ const getUserId = async (userId) => {
     );
     return result[0].userIdList;
   } catch (err) {
-    throwCustomError("GET_USER_ID_FAIL", 500);
+    throwCustomError("GET_USER_ID_FAIL", 400);
   }
 };
 
@@ -174,7 +184,7 @@ const getPostId = async (userIdList, page, pagination) => {
       [userIdList]
     );
   } catch (err) {
-    throwCustomError("GET_POST_ID_FAIL", 500);
+    throwCustomError("GET_POST_ID_FAIL", 400);
   }
 };
 
@@ -198,7 +208,7 @@ const toggleLikeState = async (userId, postId) => {
       );
     }
   } catch (err) {
-    throwCustomError("LIKE_FAIL", 500);
+    throwCustomError("LIKE_FAIL", 400);
   }
 };
 
@@ -221,7 +231,7 @@ const toggleCollectionState = async (userId, postId) => {
       );
     }
   } catch (err) {
-    throwCustomError("COLLECTION_FAIL", 500);
+    throwCustomError("COLLECTION_FAIL", 400);
   }
 };
 
@@ -248,6 +258,24 @@ const deleteReview = async (reviewId) => {
   }
 };
 
+const getCollectionPostId = async (userId, page, pagination) => {
+  try {
+    // 우선 컬렉션에 저장해 둔 포스트 ID 추출
+    // 추후 서윤님 기획에 맞춰 포스트 피드처럼 조회할지, 지도 정보를 포함하여 조회할지 등등을 정한다.
+    const [{ postIdList }] = await appDataSource.query(
+      `SELECT JSON_ARRAYAGG(post_id) AS postIdList 
+      FROM promenade_collections 
+      WHERE user_id = ${userId} 
+      ORDER BY created_at DESC 
+      LIMIT ${(page - 1) * pagination}, ${pagination}`
+    );
+
+    return postIdList;
+  } catch (err) {
+    throwCustomError("GET_POST_ID_FAIL", 400);
+  }
+};
+
 module.exports = {
   createPost,
   readPost,
@@ -257,4 +285,5 @@ module.exports = {
   toggleCollectionState,
   createReview,
   deleteReview,
+  getCollectionPostId,
 };

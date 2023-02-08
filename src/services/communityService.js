@@ -5,7 +5,8 @@ const createPost = async (userId, postList, s3Images) => {
 };
 
 const getPostDetail = async (userId, postId) => {
-  return await communityDao.readPost(userId, postId);
+  const flag = "detail";
+  return await communityDao.readPost(userId, postId, flag);
 };
 
 const getFeedPosts = async (userId, postId, page, pagination) => {
@@ -16,7 +17,8 @@ const getFeedPosts = async (userId, postId, page, pagination) => {
   const postList = [];
 
   for ({ postId } of postIdList) {
-    const postData = await communityDao.readPost(userId, postId);
+    const flag = "feed";
+    const postData = await communityDao.readPost(userId, postId, flag);
     postList.push(postData);
   }
   return postList;
@@ -38,6 +40,23 @@ const deleteReview = async (reviewId) => {
   return await communityDao.deleteReview(reviewId);
 };
 
+const getCommunityCollecion = async (userId, page, pagination) => {
+  const postIdList = await communityDao.getCollectionPostId(
+    userId,
+    page,
+    pagination
+  );
+
+  const postList = [];
+  const flag = "collection";
+
+  for (postId of postIdList) {
+    const postData = await communityDao.readPost(userId, postId, flag);
+    postList.push(postData);
+  }
+  return postList;
+};
+
 module.exports = {
   createPost,
   getPostDetail,
@@ -46,4 +65,5 @@ module.exports = {
   toggleCollectionState,
   createReview,
   deleteReview,
+  getCommunityCollecion,
 };
