@@ -73,8 +73,12 @@ const createReview = asyncErrorHandler(async (req, res) => {
   if (!postId || !content) {
     throwCustomError("KEY_ERROR", 400);
   }
-  await promenadeService.createReview(req.userId, postId, content);
-  return res.status(201).json({ message: "CREATE_REVIEW_SUCCESS" });
+  const reviewer = await promenadeService.createReview(
+    req.userId,
+    postId,
+    content
+  );
+  return res.status(201).json(reviewer);
 });
 
 // 댓글 삭제
