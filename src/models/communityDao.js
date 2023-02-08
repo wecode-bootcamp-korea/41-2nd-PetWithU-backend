@@ -31,16 +31,17 @@ const createPost = async (userId, postList, s3Images) => {
         `SELECT LAST_INSERT_ID() AS postDetailId;`
       );
 
-      const infoList = postList[i].plusItem.infoList;
+      const tagList = postList[i].tagList;
 
       const image_bulk_arr = [];
-      for (infoObj of infoList) {
+      for (tag of tagList) {
         const tmp = [
           postId,
           postDetailId,
-          infoObj.productId,
-          infoObj.x,
-          infoObj.y,
+          // 상품 id
+          tag.id,
+          tag.offset.x,
+          tag.offset.y,
         ];
         image_bulk_arr.push(tmp);
       }
@@ -50,7 +51,7 @@ const createPost = async (userId, postList, s3Images) => {
       await appDataSource.query(imageSql, [image_bulk_arr]);
 
       const hash_bulk_arr = [];
-      for (hash of postList[i].hashtag) {
+      for (hash of postList[i].hashTag) {
         const tmp = [userId, postId, postDetailId, hash];
         hash_bulk_arr.push(tmp);
       }

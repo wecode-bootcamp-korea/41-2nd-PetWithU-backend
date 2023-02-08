@@ -4,7 +4,10 @@ const { throwCustomError } = require("../utils/errorHandling");
 
 // 1. 커뮤니티 글쓰기
 const createPost = asyncErrorHandler(async (req, res) => {
-  const { postList } = JSON.parse(req.body.postList);
+  console.log(req.body);
+  let postList = req.body.data;
+  postList = postList.slice(1, -1);
+  postList = JSON.parse(postList);
 
   // const s3List = req.files.location;
   const s3Images = req.files;
