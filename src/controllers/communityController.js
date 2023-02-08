@@ -62,7 +62,6 @@ const toggleCollectionState = asyncErrorHandler(async (req, res) => {
 
 // 이미지 업로드
 const imagePost = asyncErrorHandler(async (req, res) => {
-  console.log("controllers");
   const imageURL = req.file.location;
   await communityService.imagePost(imageURL);
   return res.status(200).json({ img: req.file.location });
