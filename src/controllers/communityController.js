@@ -91,6 +91,17 @@ const deleteReview = asyncErrorHandler(async (req, res) => {
   return res.status(204).json({ message: "DELETE_REVIEW_SUCCESS" });
 });
 
+//스크랩 게시글 모아보기
+const getCommunityCollecion = asyncErrorHandler(async (req, res) => {
+  const { page, pagination } = req.query;
+  const collections = await communityService.getCommunityCollecion(
+    req.userId,
+    page,
+    pagination
+  );
+  return res.status(200).json(collections);
+});
+
 module.exports = {
   createPost,
   getPostDetail,
@@ -99,4 +110,5 @@ module.exports = {
   toggleCollectionState,
   createReview,
   deleteReview,
+  getCommunityCollecion,
 };

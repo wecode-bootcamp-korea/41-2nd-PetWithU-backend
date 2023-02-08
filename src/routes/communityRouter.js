@@ -14,7 +14,7 @@ router.post(
   communityController.createPost
 );
 // 게시글 상세 조회
-router.get("/:postId", validateToken, communityController.getPostDetail);
+router.get("/detail/:postId", validateToken, communityController.getPostDetail);
 // 커뮤니티 피드 게시글 조회
 router.get("/", validateToken, communityController.getFeedPosts);
 router.post("", validateToken, communityController.createPost);
@@ -34,6 +34,12 @@ router.delete(
   "/review/:reviewId",
   validateToken,
   communityController.deleteReview
+);
+
+router.get(
+  "/collection",
+  validateToken,
+  communityController.getCommunityCollecion
 );
 
 module.exports = {
