@@ -282,6 +282,79 @@ const getCollectionPostId = async (userId, page, pagination) => {
   }
 };
 
+const getCommunityFeeds = async (limit = 4, offset = 0, userId) => {
+  const queryRunner = appDataSource.createQueryRunner()
+  await queryRunner.connect()
+  await queryRunner.startTransaction()
+
+  try {
+    const feedsResponse = await queryRunner.query(
+      `
+        SELECT
+          cp.id AS postId,
+          cp.user_id AS userId,
+          u.nickname,
+          u.profile_image AS profileImage,
+          cp.created_at AS createdAt,
+          (
+            SELECT COUNT(id)
+            FROM community_likes cl
+            WHERE cl.post_id = cp.id
+          ) AS likeCount,
+          (
+            SELECT IF(
+              EXISTS(
+                SELECT id 
+                FROM community_likes 
+                WHERE post_id = cp.id 
+                  AND user_id = ${userId}
+              ), true, false
+            )
+          ) AS likeState,
+          (
+            SELECT COUNT(id)
+            FROM community_collections cc
+            WHERE cc.post_id = cp.id
+              AND cc.user_id = cp.user_id
+          ) AS collectionCount,
+          (
+            SELECT IF(
+              EXISTS(
+                SELECT id
+                FROM community_collections
+                WHERE post_id = cp.id
+                  AND user_id = ${userId}
+              ), true, false
+            )
+          ) AS collectionState,
+          (
+            SELECT COUNT(id)
+            FROM community_collections cc
+            WHERE cc.post_id = cp.id
+              AND cc.user_id = ?
+          ) AS collectionState
+        FROM community_posts cp
+        INNER JOIN community_post_details cpd ON cpd.post_id = cp.id
+        INNER JOIN users u                    ON u.id = cp.user_id
+        GROUP BY cp.id
+      `, [userId, userId]
+    )
+    const feeds = feedsResponse.map(feed => {
+      feed.likeCount       = parseInt(feed.likeCount)
+      feed.likeState       = !!parseInt(feed.likeState)
+      feed.collectionCount = parseInt(feed.collectionCount)
+      feed.collectionState = !!parseInt(feed.collectionState)
+
+      return feed
+    })
+    return feeds
+  } catch (err) {
+    await queryRunner.rollbackTransaction()
+  } finally {
+    await queryRunner.release()
+  }
+}
+
 module.exports = {
   createPost,
   readPost,
@@ -292,4 +365,5 @@ module.exports = {
   createReview,
   deleteReview,
   getCollectionPostId,
+  getCommunityFeeds
 };
