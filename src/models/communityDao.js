@@ -279,7 +279,7 @@ const getCollectionPostId = async (userId, page, pagination) => {
     // 추후 서윤님 기획에 맞춰 포스트 피드처럼 조회할지, 지도 정보를 포함하여 조회할지 등등을 정한다.
     const [{ postIdList }] = await appDataSource.query(
       `SELECT JSON_ARRAYAGG(post_id) AS postIdList 
-      FROM promenade_collections 
+      FROM community_collections 
       WHERE user_id = ${userId} 
       ORDER BY created_at DESC 
       LIMIT ${(page - 1) * pagination}, ${pagination}`
