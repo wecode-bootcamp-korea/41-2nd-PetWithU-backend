@@ -49,6 +49,10 @@ const getPromenadeCollecion = async (userId, page, pagination) => {
   const postList = [];
   const flag = "collection";
 
+  // 스크랩한 게시글이 한개도 없으면 빈 배열 그대로 리턴
+  if (postIdList === null) {
+    return postList;
+
   for (postId of postIdList) {
     const postData = await promenadeDao.readPost(userId, postId, flag);
     postList.push(postData);

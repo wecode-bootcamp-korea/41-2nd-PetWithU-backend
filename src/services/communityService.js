@@ -47,12 +47,13 @@ const getCommunityCollecion = async (userId, page, pagination) => {
     pagination
   );
 
-  if (!postIdList.length) {
-    return postList;
-  }
-
   const postList = [];
   const flag = "collection";
+
+  // 스크랩한 게시글이 한개도 없으면 빈 배열 그대로 리턴
+  if (postIdList === null) {
+    return postList;
+  }
 
   for (postId of postIdList) {
     const postData = await communityDao.readPost(userId, postId, flag);
