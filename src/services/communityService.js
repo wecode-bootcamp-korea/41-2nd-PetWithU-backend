@@ -47,6 +47,10 @@ const getCommunityCollecion = async (userId, page, pagination) => {
     pagination
   );
 
+  if (!postIdList.length) {
+    return postList;
+  }
+
   const postList = [];
   const flag = "collection";
 
