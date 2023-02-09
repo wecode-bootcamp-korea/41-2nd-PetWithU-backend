@@ -70,7 +70,7 @@ const createReview = asyncErrorHandler(async (req, res) => {
   // userId, postId, content 받기
   const { postId, content } = req.body;
 
-  if (!postId || !content) {
+  if (!postId) {
     throwCustomError("KEY_ERROR", 400);
   }
   const reviewer = await promenadeService.createReview(

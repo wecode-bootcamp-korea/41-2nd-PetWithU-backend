@@ -17,13 +17,16 @@ const readPost = async (userId, postId, flag) => {
           pp.title,
           pp.thumbnail,
           (SELECT COUNT(id) FROM promenade_likes  WHERE post_id = pp.id)  AS likeCount,
-          (SELECT IF(EXISTS (SELECT id FROM promenade_likes WHERE post_id = pp.id AND user_id = ${userId}), 'true', 'false')) AS likeState,
+          (SELECT (EXISTS (SELECT id FROM promenade_likes WHERE post_id = pp.id AND user_id = ${userId}))) AS likeState,
           (SELECT COUNT(id) FROM promenade_collections  WHERE post_id = pp.id)  AS collectionCount,
-          (SELECT IF(EXISTS (SELECT id FROM promenade_collections WHERE post_id = pp.id AND user_id = ${userId}), 'true', 'false')) AS collectionState
+          (SELECT (EXISTS (SELECT id FROM promenade_collections WHERE post_id = pp.id AND user_id = ${userId}))) AS collectionState
         FROM promenade_posts pp
         INNER JOIN users u ON u.id = pp.user_id
         WHERE pp.id = ${postId}`
     );
+
+    postInfo.likeState = postInfo.likeState == 1 ? true : false;
+    postInfo.collectionState = postInfo.collectionState == 1 ? true : false;
 
     // 해당 Flag === feed 면 피드 정보 추출이므로 postInfo 만 리턴
     // False 면 포스트 상세페이지를 조회하므로 지도, 리뷰 등등 전부 리턴.

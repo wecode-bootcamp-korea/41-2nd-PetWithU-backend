@@ -1,20 +1,24 @@
 const { appDataSource } = require("./data-source");
 const { throwCustomError } = require("../utils/errorHandling");
 const createPost = async (userId, postList, s3Images) => {
+  const queryRunner = appDataSource.createQueryRunner();
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
+
   try {
-    await appDataSource.query(
+    await queryRunner.query(
       `INSERT INTO community_posts(user_id)
       VALUES (?)
         `,
       [userId]
     );
 
-    const [{ postId }] = await appDataSource.query(
+    const [{ postId }] = await queryRunner.query(
       `SELECT LAST_INSERT_ID() AS postId;`
     );
 
     for (i = 0; i < postList.length; i++) {
-      await appDataSource.query(
+      await queryRunner.query(
         `INSERT INTO community_post_details
         (post_id, category_id, content, image_url)
         VALUES (?, ?, ?, ?)
@@ -27,7 +31,7 @@ const createPost = async (userId, postList, s3Images) => {
         ]
       );
 
-      const [{ postDetailId }] = await appDataSource.query(
+      const [{ postDetailId }] = await queryRunner.query(
         `SELECT LAST_INSERT_ID() AS postDetailId;`
       );
 
@@ -48,7 +52,7 @@ const createPost = async (userId, postList, s3Images) => {
 
       const imageSql =
         "INSERT INTO community_image (post_id, post_detail_id, product_id, point_x, point_y ) VALUES ?";
-      await appDataSource.query(imageSql, [image_bulk_arr]);
+      await queryRunner.query(imageSql, [image_bulk_arr]);
 
       const hash_bulk_arr = [];
       for (hash of postList[i].hashTag) {
@@ -58,10 +62,12 @@ const createPost = async (userId, postList, s3Images) => {
 
       const hashSql =
         "INSERT INTO community_hashtags (user_id, post_id, post_detail_id, hashtag) VALUES ?";
-      await appDataSource.query(hashSql, [hash_bulk_arr]);
+      await queryRunner.query(hashSql, [hash_bulk_arr]);
     }
   } catch (err) {
-    throwCustomError("CREATE_POST_FAIL", 400);
+    await queryRunner.rollbackTransaction();
+  } finally {
+    await queryRunner.release();
   }
 };
 
@@ -75,14 +81,17 @@ const readPost = async (userId, postId, flag) => {
           u.profile_image AS profileImage,
           cp.created_at AS createdAt,
           (SELECT COUNT(id) FROM community_likes WHERE post_id = cp.id)  AS likeCount,
-          (SELECT IF(EXISTS (SELECT id FROM community_likes WHERE post_id = cp.id AND user_id = ${userId}), 'true', 'false')) AS likeState,
+          (SELECT EXISTS (SELECT id FROM community_likes WHERE post_id = cp.id AND user_id = ${userId})) AS likeState,
           (SELECT COUNT(id) FROM community_collections WHERE post_id = cp.id)  AS collectionCount,
-          (SELECT IF(EXISTS (SELECT id FROM community_collections WHERE post_id = cp.id AND user_id = ${userId}), 'true', 'false')) AS collectionState
+          (SELECT EXISTS (SELECT id FROM community_collections WHERE post_id = cp.id AND user_id = ${userId})) AS collectionState
           FROM community_posts cp
         INNER JOIN users u ON u.id = cp.user_id
         WHERE cp.id = ${postId}
         GROUP BY cp.id`
     );
+
+    postHeader.likeState = postHeader.likeState == 1 ? true : false;
+    postHeader.collectionState = postHeader.collectionState == 1 ? true : false;
 
     // 이미지 조회 && community_image 테이블 정보 조회
     const postContent = await appDataSource.query(
@@ -172,7 +181,7 @@ const getUserId = async (userId) => {
 const getPostId = async (userIdList, page, pagination) => {
   try {
     if (!page) page = 1;
-    if (!pagination) pagination = 2;
+    if (!pagination) pagination = 9;
 
     return await appDataSource.query(
       `
