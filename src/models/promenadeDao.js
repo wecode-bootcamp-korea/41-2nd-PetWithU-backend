@@ -96,7 +96,7 @@ const readPost = async (userId, postId, flag) => {
 // 카테고리 없는 경우 전체조회.
 // 페이지 번호  = 1
 // 페이지네이션 = 3
-const getPostId = async (city, arrondissement, page, pagination) => {
+const getPostId = async (city, arrondissement) => {
   try {
     const fullQuery = [];
     const defaultQuery = `SELECT id AS postId FROM promenade_posts`;
@@ -104,9 +104,7 @@ const getPostId = async (city, arrondissement, page, pagination) => {
 
     const allArrondissementQuery = `WHERE city_id = ${city}`;
     const ArrondissementQuery = `WHERE city_id = ${city} AND arrondissement_id = ${arrondissement}`;
-    const orderQuery = `ORDER BY created_at DESC LIMIT ${
-      (page - 1) * pagination
-    }, ${pagination}`;
+    const orderQuery = `ORDER BY created_at DESC`;
 
     if (arrondissement === "all") {
       fullQuery.push(allArrondissementQuery);

@@ -29,8 +29,8 @@ const getPostDetail = asyncErrorHandler(async (req, res) => {
     throwCustomError("KEY_ERROR", 400);
   }
 
-  const postList = await communityService.getPostDetail(req.userId, postId);
-  return res.status(200).json(postList);
+  const postObj = await communityService.getPostDetail(req.userId, postId);
+  return res.status(200).json(postObj);
 });
 
 // 3. 커뮤니티 피드 조회

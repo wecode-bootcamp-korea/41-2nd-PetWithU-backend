@@ -1,5 +1,6 @@
 const { appDataSource } = require("./data-source");
 const { throwCustomError } = require("../utils/errorHandling");
+
 const createPost = async (userId, postList, s3Images) => {
   const queryRunner = appDataSource.createQueryRunner();
   await queryRunner.connect();
@@ -281,8 +282,7 @@ const getCollectionPostId = async (userId, page, pagination) => {
       `SELECT JSON_ARRAYAGG(post_id) AS postIdList 
       FROM community_collections 
       WHERE user_id = ${userId} 
-      ORDER BY created_at DESC 
-      LIMIT ${(page - 1) * pagination}, ${pagination}`
+      ORDER BY created_at DESC`
     );
 
     return postIdList;
