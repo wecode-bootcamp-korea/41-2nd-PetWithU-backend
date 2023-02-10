@@ -1,6 +1,11 @@
 const { appDataSource } = require("./data-source");
 const { throwCustomError } = require("../utils/errorHandling");
+
 const createPost = async (userId, postList, s3Images) => {
+  // const queryRunner = appDataSource.createQueryRunner();
+  // await queryRunner.connect();
+  // await queryRunner.startTransaction();
+
   try {
     await appDataSource.query(
       `INSERT INTO community_posts(user_id)
@@ -61,7 +66,10 @@ const createPost = async (userId, postList, s3Images) => {
       await appDataSource.query(hashSql, [hash_bulk_arr]);
     }
   } catch (err) {
-    throwCustomError("CREATE_POST_FAIL", 400);
+    throwCustomError("FEED_FAIL", 400);
+    // await queryRunner.rollbackTransaction();
+    // } finally {
+    //   await queryRunner.release();
   }
 };
 
@@ -75,14 +83,17 @@ const readPost = async (userId, postId, flag) => {
           u.profile_image AS profileImage,
           cp.created_at AS createdAt,
           (SELECT COUNT(id) FROM community_likes WHERE post_id = cp.id)  AS likeCount,
-          (SELECT IF(EXISTS (SELECT id FROM community_likes WHERE post_id = cp.id AND user_id = ${userId}), 'true', 'false')) AS likeState,
+          (SELECT EXISTS (SELECT id FROM community_likes WHERE post_id = cp.id AND user_id = ${userId})) AS likeState,
           (SELECT COUNT(id) FROM community_collections WHERE post_id = cp.id)  AS collectionCount,
-          (SELECT IF(EXISTS (SELECT id FROM community_collections WHERE post_id = cp.id AND user_id = ${userId}), 'true', 'false')) AS collectionState
+          (SELECT EXISTS (SELECT id FROM community_collections WHERE post_id = cp.id AND user_id = ${userId})) AS collectionState
           FROM community_posts cp
         INNER JOIN users u ON u.id = cp.user_id
         WHERE cp.id = ${postId}
         GROUP BY cp.id`
     );
+
+    postHeader.likeState = postHeader.likeState == 1 ? true : false;
+    postHeader.collectionState = postHeader.collectionState == 1 ? true : false;
 
     // 이미지 조회 && community_image 테이블 정보 조회
     const postContent = await appDataSource.query(
@@ -172,7 +183,7 @@ const getUserId = async (userId) => {
 const getPostId = async (userIdList, page, pagination) => {
   try {
     if (!page) page = 1;
-    if (!pagination) pagination = 2;
+    if (!pagination) pagination = 9;
 
     return await appDataSource.query(
       `
@@ -270,10 +281,9 @@ const getCollectionPostId = async (userId, page, pagination) => {
     // 추후 서윤님 기획에 맞춰 포스트 피드처럼 조회할지, 지도 정보를 포함하여 조회할지 등등을 정한다.
     const [{ postIdList }] = await appDataSource.query(
       `SELECT JSON_ARRAYAGG(post_id) AS postIdList 
-      FROM promenade_collections 
+      FROM community_collections 
       WHERE user_id = ${userId} 
-      ORDER BY created_at DESC 
-      LIMIT ${(page - 1) * pagination}, ${pagination}`
+      ORDER BY created_at DESC`
     );
 
     return postIdList;

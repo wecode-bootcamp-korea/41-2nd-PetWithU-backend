@@ -32,7 +32,7 @@ const searchProducts = async (
 
 const getProductDetails = async (productId) => {
   try {
-    return await appDataSource.query(
+    const [productDetail] = await appDataSource.query(
       `SELECT
           p.id AS productId,
           p.name,
@@ -46,7 +46,9 @@ const getProductDetails = async (productId) => {
         LEFT JOIN product_images pi ON p.id = pi.product_id
         WHERE p.id = ${productId}
         GROUP BY p.id`
-        );
+    );
+
+    return productDetail;
   } catch (err) {
     throwCustomError("DB_SELECT_FAILED", 500);
   }

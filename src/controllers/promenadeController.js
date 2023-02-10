@@ -33,14 +33,14 @@ const getFeedPosts = asyncErrorHandler(async (req, res) => {
   // pagination 이 없는 경우 전체 게시글 조회 (모든 행정구 조회)
   if (!pagination) pagination = 9;
 
-  const postList = await promenadeService.getFeedPosts(
+  const postObj = await promenadeService.getFeedPosts(
     req.userId,
     city,
     arrondissement,
     page,
     pagination
   );
-  return res.status(200).json({ postList });
+  return res.status(200).json(postObj);
 });
 
 // 3. 산책로 게시글 - like 누르기
@@ -70,7 +70,7 @@ const createReview = asyncErrorHandler(async (req, res) => {
   // userId, postId, content 받기
   const { postId, content } = req.body;
 
-  if (!postId || !content) {
+  if (!postId) {
     throwCustomError("KEY_ERROR", 400);
   }
   const reviewer = await promenadeService.createReview(

@@ -5,22 +5,27 @@ const getPostDetail = async (userId, postId) => {
 };
 
 const getFeedPosts = async (userId, city, arrondissement, page, pagination) => {
-  const postIdList = await promenadeDao.getPostId(
-    city,
-    arrondissement,
-    page,
+  const postIdList = await promenadeDao.getPostId(city, arrondissement);
+
+  const pageiation_postIdList = postIdList.slice(
+    (page - 1) * pagination,
     pagination
   );
 
   const postList = [];
   const flag = "feed";
 
-  for ({ postId } of postIdList) {
+  for ({ postId } of pageiation_postIdList) {
     const promenadeFeedFlag = true;
     const postData = await promenadeDao.readPost(userId, postId, flag);
     postList.push(postData);
   }
-  return postList;
+
+  const postObj = {
+    postCount: postIdList.length,
+    postList: postList,
+  };
+  return postObj;
 };
 
 const toggleLikeState = async (userId, postId) => {
@@ -48,6 +53,11 @@ const getPromenadeCollecion = async (userId, page, pagination) => {
 
   const postList = [];
   const flag = "collection";
+
+  // 스크랩한 게시글이 한개도 없으면 빈 배열 그대로 리턴
+  if (postIdList === null) {
+    return postList;
+  }
 
   for (postId of postIdList) {
     const postData = await promenadeDao.readPost(userId, postId, flag);

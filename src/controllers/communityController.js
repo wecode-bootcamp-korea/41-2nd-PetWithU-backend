@@ -4,10 +4,7 @@ const { throwCustomError } = require("../utils/errorHandling");
 
 // 1. 커뮤니티 글쓰기
 const createPost = asyncErrorHandler(async (req, res) => {
-  console.log(req.body);
-  let postList = req.body.data;
-  postList = postList.slice(1, -1);
-  postList = JSON.parse(postList);
+  const postList = JSON.parse(req.body.data);
 
   // const s3List = req.files.location;
   const s3Images = req.files;
@@ -32,8 +29,8 @@ const getPostDetail = asyncErrorHandler(async (req, res) => {
     throwCustomError("KEY_ERROR", 400);
   }
 
-  const postList = await communityService.getPostDetail(req.userId, postId);
-  return res.status(200).json(postList);
+  const postObj = await communityService.getPostDetail(req.userId, postId);
+  return res.status(200).json(postObj);
 });
 
 // 3. 커뮤니티 피드 조회
@@ -75,7 +72,7 @@ const createReview = asyncErrorHandler(async (req, res) => {
   // userId, postId, content 받기
   const { postId, content } = req.body;
 
-  if (!postId || !content) {
+  if (!postId) {
     throwCustomError("KEY_ERROR", 400);
   }
   const reviewer = await communityService.createReview(
