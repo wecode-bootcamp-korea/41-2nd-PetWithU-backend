@@ -2,24 +2,24 @@ const { appDataSource } = require("./data-source");
 const { throwCustomError } = require("../utils/errorHandling");
 
 const createPost = async (userId, postList, s3Images) => {
-  const queryRunner = appDataSource.createQueryRunner();
-  await queryRunner.connect();
-  await queryRunner.startTransaction();
+  // const queryRunner = appDataSource.createQueryRunner();
+  // await queryRunner.connect();
+  // await queryRunner.startTransaction();
 
   try {
-    await queryRunner.query(
+    await appDataSource.query(
       `INSERT INTO community_posts(user_id)
       VALUES (?)
         `,
       [userId]
     );
 
-    const [{ postId }] = await queryRunner.query(
+    const [{ postId }] = await appDataSource.query(
       `SELECT LAST_INSERT_ID() AS postId;`
     );
 
     for (i = 0; i < postList.length; i++) {
-      await queryRunner.query(
+      await appDataSource.query(
         `INSERT INTO community_post_details
         (post_id, category_id, content, image_url)
         VALUES (?, ?, ?, ?)
@@ -32,7 +32,7 @@ const createPost = async (userId, postList, s3Images) => {
         ]
       );
 
-      const [{ postDetailId }] = await queryRunner.query(
+      const [{ postDetailId }] = await appDataSource.query(
         `SELECT LAST_INSERT_ID() AS postDetailId;`
       );
 
@@ -53,7 +53,7 @@ const createPost = async (userId, postList, s3Images) => {
 
       const imageSql =
         "INSERT INTO community_image (post_id, post_detail_id, product_id, point_x, point_y ) VALUES ?";
-      await queryRunner.query(imageSql, [image_bulk_arr]);
+      await appDataSource.query(imageSql, [image_bulk_arr]);
 
       const hash_bulk_arr = [];
       for (hash of postList[i].hashTag) {
@@ -63,12 +63,13 @@ const createPost = async (userId, postList, s3Images) => {
 
       const hashSql =
         "INSERT INTO community_hashtags (user_id, post_id, post_detail_id, hashtag) VALUES ?";
-      await queryRunner.query(hashSql, [hash_bulk_arr]);
+      await appDataSource.query(hashSql, [hash_bulk_arr]);
     }
   } catch (err) {
-    await queryRunner.rollbackTransaction();
-  } finally {
-    await queryRunner.release();
+    throwCustomError("FEED_FAIL", 400);
+    // await queryRunner.rollbackTransaction();
+    // } finally {
+    //   await queryRunner.release();
   }
 };
 
