@@ -106,6 +106,18 @@ const getCommunityCollecion = asyncErrorHandler(async (req, res) => {
   return res.status(200).json(collections);
 });
 
+
+/*
+ ** new community feeds controller
+ */
+const getCommunityFeeds = asyncErrorHandler(async (req, res) => {
+  const { limit, offset } = req.query
+
+  const feeds = await communityService.getCommunityFeeds(limit, offset, 1)
+
+  return res.status(200).json({ feeds })
+})
+
 module.exports = {
   createPost,
   getPostDetail,
@@ -115,4 +127,5 @@ module.exports = {
   createReview,
   deleteReview,
   getCommunityCollecion,
+  getCommunityFeeds
 };

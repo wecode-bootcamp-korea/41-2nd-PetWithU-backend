@@ -42,6 +42,8 @@ router.get(
   communityController.getCommunityCollecion
 );
 
+router.get("/feeds", communityController.getCommunityFeeds)
+
 module.exports = {
   router,
 };

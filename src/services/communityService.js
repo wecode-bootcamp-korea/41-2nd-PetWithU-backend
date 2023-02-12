@@ -77,6 +77,12 @@ const getCommunityCollecion = async (userId, page, pagination) => {
   return postList;
 };
 
+const getCommunityFeeds = async (limit, offset, userId) => {
+  const feeds = communityDao.getCommunityFeeds(limit, offset, userId)
+
+  return feeds
+}
+
 module.exports = {
   createPost,
   getPostDetail,
@@ -86,4 +92,5 @@ module.exports = {
   createReview,
   deleteReview,
   getCommunityCollecion,
+  getCommunityFeeds
 };
