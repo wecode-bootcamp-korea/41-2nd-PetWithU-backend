@@ -95,4 +95,4 @@ Communication
 <br>
 
 ## 📑 API Documentation
-[Postman Link](https://documenter.getpostman.com/view/24998473/2s935oLPdR))
+[Postman Link](https://documenter.getpostman.com/view/24998473/2s935oLPdR)
