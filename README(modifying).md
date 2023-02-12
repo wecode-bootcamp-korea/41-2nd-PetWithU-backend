@@ -1,13 +1,6 @@
 # 🐶 PetWithU
 
-<!DOCTYPE html>
-<html>
-<body>
-<CENTER>
 <img src="https://user-images.githubusercontent.com/53294075/218286832-8953f862-d778-4ba3-a01d-e2e3fd9d54dd.png" width = "400px">
-</CENTER>
-</body>
-</html>
 
 안녕하세요, 저희는 'PetWithU' 팀입니다.
 - 'PetWithU' 는 Wecode 코딩 부트캠프 41기 학생들로 구성된 최종 프로젝트 팀명이자 저희의 서비스 이름으로,
@@ -84,7 +77,7 @@ Communication
 
 | 페이지 | 구현 내용 캡쳐 | 개발 담당 |
 | --- | --- | --- |
-| DB 설계<br>Migration | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/210484237-5bcd10e9-1c21-4408-aac1-2b9380980bf4.png" width = "600px"></p><br>[Detail LINK](https://github.com/wecode-bootcamp-korea/41-1st-Weat-backend/issues/6) | [BE] 최민주 |
+| DB 설계<br>Migration | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218289356-eff87768-d75e-4eee-aaa6-018ba378cd1b.png" width = "600px"></p><br>[Detail LINK](https://github.com/wecode-bootcamp-korea/41-2nd-PetWithU-backend/issues/5) | [BE] 최민주 |
 | 메인 화면<br>Nav Bar<br>Footer | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548316-74f42e68-56b7-42c3-b72d-5b022b7c9c96.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
 | Kakao 로그인 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548326-1a6b55c4-302c-4f06-a6af-073600641af2.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
 | 산책로 메인 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548326-1a6b55c4-302c-4f06-a6af-073600641af2.png" width = "400px"></p> | [FE] 강서윤 <br> [BE] 최민주 |
@@ -103,6 +96,3 @@ Communication
 
 ## 📑 API Documentation
 [Postman Link](https://documenter.getpostman.com/view/24998473/2s935oLPdR))
-
-
-
