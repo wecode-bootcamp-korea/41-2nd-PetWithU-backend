@@ -94,6 +94,7 @@ Communication
 | 산책로 디테일 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548316-74f42e68-56b7-42c3-b72d-5b022b7c9c96.png" width = "400px"></p> | [FE] 강서윤 <br> [BE] 최민주 |
 | 산책로 스크랩<br>모아보기 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548328-b1e938f4-f2bf-42e7-8451-c0e809356128.png" width = "400px"></p> | [FE] 강서윤 <br> [BE] 최민주 |
 | 장바구니 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548331-013f23e7-c8e1-4f88-b301-da0b8c25ca0c.png" width = "400px"></p> | [FE] 권나현 <br> [BE] 최민주 |
+
 </details>
 
 <br>
@@ -104,6 +105,10 @@ Communication
 <br>
 
 ## 🛠️ 구현 상세
+
+<details>
+    <summary>상세보기</summary>
+    
 ### 🗄️ Server & DataBase
 - AWS RDS 에 DB를 구축하여 FE 및 사용자가 언제든지 원활하게 DB를 이용할 수 있도록 지원함.
 
@@ -114,7 +119,9 @@ Communication
 - 로그인 후 사용자 인증/인가에 패스워드 대신 JWT 를 사용하여 보안성 향상
 - Bcrypt를 사용하여 비밀번호를 암호화하여 DB에 저장
   - 사용자의 계정 정보를 더욱 안전하게 관리
+
 #### Follow / Following
+- 사용자 간 팔로우 / 팔로잉 지원
 
 ### 🦴 Products
 #### Main page
@@ -123,15 +130,12 @@ Communication
 
 #### Detail page
 - 특정 제품의 세부 정보 조회
-- 쿼리 파라미터를 이용하여 FE에서 요청하는 카테고리 페이지 정보를 효율적으로 요청받음
-
 
 ### 🖼️ Feed
 모든 API가 수행되기 전에 로그인한 사용자의 JWT 를 검증하여 사용자 인증 후 인가.
-글쓰기
-- Bulk Insert
 
 #### Main Page
+- 쿼리 파라미터를 이용하여 FE에서 요청하는 카테고리 페이지 정보를 효율적으로 요청받음
 - 좋아요 / 스크랩 / 댓글 조회 지원
 #### Detail Page
 - 좋아요 / 스크랩 / 지원
@@ -140,6 +144,7 @@ Communication
 
 ### 📝 Feed (Special Options)
 #### 글쓰기
+- Bulk Insert
 #### 상품 검색
 
 ### 🏞️ Promenade
@@ -169,6 +174,7 @@ Communication
 - INNER JOIN 쿼리를 조합하여 JWT 단 하나만으로 사용자 장바구니의 모든 정보를 조회할 수 있도록 구현 (정보 노출 최소화 및 보안 강화)
 - Bulk Delete 를 이용하여 여러 개의 장바구니 삭제를 하나의 Query 로 수행
 
+</details>
 
 <br>
 
@@ -178,7 +184,7 @@ Communication
     <summary>더보기</summary>
   
 ### JWT 만으로는 보안상 취약하다
-- 💡 추가적인 보안 기능을 도입한다. (MFA
+- 💡 추가적인 보안 기능을 도입한다. (MFA)
 
 ### DB가 팀 멤버 각각의 로컬에 존재한다
 - 완전히 동일한 DB를 사용할 수 없어서 테스트 환경에 차이가 난다
