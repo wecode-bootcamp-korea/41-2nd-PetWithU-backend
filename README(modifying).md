@@ -105,7 +105,7 @@ Communication
 
 ## 🛠️ 구현 상세
 ### 🗄️ Server & DataBase
-- AWS RDS 에 DB를 구축하여 FE 및 사용자가 언제든 원활하게 DB를 이용할 수 있도록 지원함
+- AWS RDS 에 DB를 구축하여 FE 및 사용자가 언제든지 원활하게 DB를 이용할 수 있도록 지원함.
 
 ### 👨‍👩‍👧‍👦 Users
 #### Login / Sign Up
