@@ -1,5 +1,5 @@
 # 🐶 PetWithU
-<img src="https://user-images.githubusercontent.com/53294075/218286832-8953f862-d778-4ba3-a01d-e2e3fd9d54dd.png" width = "400px">
+<p align="center"><img src="https://user-images.githubusercontent.com/53294075/218286832-8953f862-d778-4ba3-a01d-e2e3fd9d54dd.png" width = "400px"></p>
 
 안녕하세요, 저희는 'PetWithU' 팀입니다.
 - 'PetWithU' 는 Wecode 코딩 부트캠프 41기 학생들로 구성된 최종 프로젝트 팀명이자 저희의 서비스 이름으로,
@@ -77,24 +77,26 @@ Communication
 <details>
     <summary>이미지 보기</summary>
     
-!! 이미지 전부 교체하기 !!
+!2월 중 이미지 일괄 교체 예정!
+    
+
 
 | 페이지 | 구현 내용 캡쳐 | 개발 담당 |
 | --- | --- | --- |
 | DB 설계<br>Migration | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218289356-eff87768-d75e-4eee-aaa6-018ba378cd1b.png" width = "600px"></p><br>[Detail LINK](https://github.com/wecode-bootcamp-korea/41-2nd-PetWithU-backend/issues/5) | [BE] 최민주 |
-| 메인 화면<br>Nav Bar<br>Footer | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548316-74f42e68-56b7-42c3-b72d-5b022b7c9c96.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
-| Kakao 로그인 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548326-1a6b55c4-302c-4f06-a6af-073600641af2.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
-| 피드 메인 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548330-7ac6768c-6070-43c2-9bda-c898c4c6a4df.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
-| 피드 디테일 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548327-ecdbdeae-b8bd-45af-8404-77e41162d617.png" width = "200px"></p> | [FE] 권나현 <br> [BE] 최민주 |
-| 피드 스크랩<br>모아보기 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548331-013f23e7-c8e1-4f88-b301-da0b8c25ca0c.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
-| 피드 글쓰기 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548331-013f23e7-c8e1-4f88-b301-da0b8c25ca0c.png" width = "400px"></p> | [FE] 권나현 <br> [BE] 최민주 |
-| 상품 검색 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548331-013f23e7-c8e1-4f88-b301-da0b8c25ca0c.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
-| 상품 디테일 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548331-013f23e7-c8e1-4f88-b301-da0b8c25ca0c.png" width = "400px"></p> | [FE] 권나현 <br> [BE] 최민주 |
-| 산책로 메인 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548326-1a6b55c4-302c-4f06-a6af-073600641af2.png" width = "400px"></p> | [FE] 강서윤 <br> [BE] 최민주 |
-| 산책로 디테일 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548316-74f42e68-56b7-42c3-b72d-5b022b7c9c96.png" width = "400px"></p> | [FE] 강서윤 <br> [BE] 최민주 |
-| 산책로 스크랩<br>모아보기 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548328-b1e938f4-f2bf-42e7-8451-c0e809356128.png" width = "400px"></p> | [FE] 강서윤 <br> [BE] 최민주 |
-| 장바구니 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548331-013f23e7-c8e1-4f88-b301-da0b8c25ca0c.png" width = "400px"></p> | [FE] 권나현 <br> [BE] 최민주 |
-
+| 메인 화면<br>Nav Bar<br>Footer | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218318656-9fd2e054-85cc-4b21-b408-4e02aa701cea.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
+| Kakao 로그인 | <p align="center"><video src="https://user-images.githubusercontent.com/53294075/218317950-ed1901e7-c407-46fb-8ab4-2c0ce5aa0889.mov" width = "400px"></video></p> | [FE] 배경민 <br> [BE] 최민주 |
+| 피드 메인 | <p align="center"><video src="https://user-images.githubusercontent.com/53294075/218318417-6f7905c4-79b8-4189-9039-b74448c77f1e.mov" width = "400px"></video></p> | [FE] 배경민 <br> [BE] 최민주 |
+| 피드 디테일 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218318656-9fd2e054-85cc-4b21-b408-4e02aa701cea.png" width = "400px"></p> | [FE] 권나현 <br> [BE] 최민주 |
+| 피드 스크랩<br>모아보기 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218318656-9fd2e054-85cc-4b21-b408-4e02aa701cea.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
+| 피드 글쓰기 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218318751-77832b5f-7fcc-4dff-8812-6f60e7dc3a52.png" width = "400px"></p> | [FE] 권나현 <br> [BE] 최민주 |
+| 상품 검색 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218318797-f28cea71-fff5-40cf-a519-34a46c763052.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
+| 상품 디테일 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218318852-d5d7c057-b2b5-4e75-9f2d-fdc41e526791.png" width = "400px"></p> | [FE] 권나현 <br> [BE] 최민주 |
+| 산책로 메인 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218318951-24fb9ded-472f-4d3a-9755-0efb4e669960.png" width = "400px"><br><img src="https://user-images.githubusercontent.com/53294075/218319054-81b68955-4a06-4bf4-9ce6-ab55712eaeaa.png" width = "400px"></p> | [FE] 강서윤 <br> [BE] 최민주 |
+| 산책로 디테일 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218318977-84391381-218b-4348-9f12-10e5101cb1af.png" width = "400px"></p> | [FE] 강서윤 <br> [BE] 최민주 |
+| 산책로 스크랩<br>모아보기 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/218319020-56fc3d6f-4c59-4039-85b2-dce1944f5080.png" width = "400px"></p> | [FE] 강서윤 <br> [BE] 최민주 |
+| 장바구니 | FE 캡쳐 미제공  | [FE] 권나현 <br> [BE] 최민주 |
+    
 </details>
 
 <br>
@@ -135,7 +137,8 @@ Communication
 모든 API가 수행되기 전에 로그인한 사용자의 JWT 를 검증하여 사용자 인증 후 인가.
 
 #### Main Page
-- 쿼리 파라미터를 이용하여 FE에서 요청하는 카테고리 페이지 정보를 효율적으로 요청받음
+- 쿼리 파라미터를 이용하여 FE에서 요청하는 페이지 정보를 효율적으로 요청받음
+    - Pagination 지원
 - 좋아요 / 스크랩 / 댓글 조회 지원
 #### Detail Page
 - 좋아요 / 스크랩 / 지원
