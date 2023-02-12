@@ -1,9 +1,17 @@
 # 🐶 PetWithU
 
-<img src="img_url" width = "200px">
+<!DOCTYPE html>
+<html>
+<body>
+<CENTER>
+<img src="https://user-images.githubusercontent.com/53294075/218286832-8953f862-d778-4ba3-a01d-e2e3fd9d54dd.png" width = "400px">
+</CENTER>
+</body>
+</html>
 
 안녕하세요, 저희는 'PetWithU' 팀입니다.
-- 'PetWithU' 은 Wecode 코딩 부트캠프 41기 학생들로 구성된 최종 프로젝트 팀명이자 저희의 서비스 이름입니다.
+- 'PetWithU' 는 Wecode 코딩 부트캠프 41기 학생들로 구성된 최종 프로젝트 팀명이자 저희의 서비스 이름으로,
+- 반려동물을 키우거나 곧 입양 예정인, 또는 반려동물에 관심있는 사용자들에게 커뮤니티 서비스를 제공하고 커뮤니티 게시글과 연관된 반려동물 용품을 판매하는 애플리케이션입니다.
 - '[오늘의집](https://ohou.se/)' 사이트 클론 코딩
     - '오늘의집' 은 한국의 스타트업이 런칭한 인테리어 플랫폼 서비스로 온라인 집들이 콘텐츠부터 스토어, 전문가 시공 서비스 등 인테리어에 필요한 모든 서비스를 제공합니다.
 
@@ -34,8 +42,8 @@
 Frond-End
 <img src="https://img.shields.io/badge/Javscript-F7DF1E?style=flat&amp;logo=javascript&amp;logoColor=white">
 <img src="https://img.shields.io/badge/React.js-61DAFB?style=flat&amp;logo=React&amp;logoColor=white">
-<img src="https://img.shields.io/badge/sass-CC6699?style=flat&amp;logo=sass&amp;logoColor=white">
 <img src="https://img.shields.io/badge/React Router-CA4245?style=flat&amp;logo=ReactRouter&amp;logoColor=white">
+<img src="https://img.shields.io/badge/styled-components-DB7093?style=flat&amp;logo=styled-components-DB7093&amp;logoColor=white">
 
 Back-End
 <img src="https://img.shields.io/badge/Node.js-339933?style=flat&amp;logo=Node.js&amp;logoColor=white">
@@ -53,7 +61,11 @@ Common
 <img src="https://img.shields.io/badge/RestfulAPI-F7533E?style=flat&amp;logo=RestfulAPII&amp;logoColor=white">
 <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat&amp;logo=Visual Studio Code&amp;logoColor=white">
 <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat&amp;logo=Postman Code&amp;logoColor=white">
-AWS EC2, AWS RDS, AWS S3
+<img src="https://img.shields.io/badge/AWS-232F3E?style=flat&amp;logo=AWS Code&amp;logoColor=white">
+<img src="https://img.shields.io/badge/AWS_EC2-FF9900?style=flat&amp;logo=AWS_EC2 Code&amp;logoColor=white">
+<img src="https://img.shields.io/badge/AWS_RDS-527FFF?style=flat&amp;logo=AWS_RDS Code&amp;logoColor=white">
+<img src="https://img.shields.io/badge/AWS_S3-569A31?style=flat&amp;logo=AWS_S3 Code&amp;logoColor=white">
+<img src="https://img.shields.io/badge/Kakao_API-FFCD00?style=flat&amp;logo=Kakaotalk Code&amp;logoColor=white">
 
 Communication
 <img src="https://img.shields.io/badge/Slack-4A154B?style=flat&amp;logo=Slack&amp;logoColor=white">
@@ -66,16 +78,32 @@ Communication
 
 <details>
     <summary>이미지 보기</summary>
+ 
+    
+!! 이미지 전부 교체하기 !!
+!! 담당자 변경 !!
+Nav / 메인: 배경민
+로그인 : 배경민
+메인페이지 : 배경민
+글쓰기 페이지 : 권나현
+산책로 메인 : 강서윤
+산책로 디테일 : 강서윤
+산책로 스크랩 모아보기 : 강서윤
+피드 메인 : 배경민
+피드 디테일 : ?
+피드 스크랩 모아보기 : 배경민
+상품 디테일 페이지 : 권나현
+장바구니 : 권나현
+Footer: 배경민
     
 | 페이지 | 구현 내용 캡쳐 | 개발 담당 |
 | --- | --- | --- |
-| DB 설계<br>Migration | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/210484237-5bcd10e9-1c21-4408-aac1-2b9380980bf4.png" width = "600px"></p><br>[Detail LINK](https://github.com/wecode-bootcamp-korea/41-1st-Weat-backend/issues/6) | [BE] 박상우 |
-| 메인 화면<br>Nav Bar | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548316-74f42e68-56b7-42c3-b72d-5b022b7c9c96.png" width = "400px"></p> | [FE] 김지환 <br> [BE] 최민주 |
-| 메인 화면<br>판매량 top6 제품 노출 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548322-608ee008-0a92-4165-a8e8-e2c8a15f9a82.png" width = "400px"></p> | [FE] 김지환 <br> [BE] 최민주 |
-| 회원가입 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548324-5ab31865-e902-4496-80c7-0991e305b873.png" width = "400px"></p> | [FE] 박정은 <br> [BE] 최민주 |
-| 로그인 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548326-1a6b55c4-302c-4f06-a6af-073600641af2.png" width = "400px"></p> | [FE] 박정은 <br> [BE] 최민주 |
+| DB 설계<br>Migration | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/210484237-5bcd10e9-1c21-4408-aac1-2b9380980bf4.png" width = "600px"></p><br>[Detail LINK](https://github.com/wecode-bootcamp-korea/41-1st-Weat-backend/issues/6) | [BE] 최민주 |
+| 로그인 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548326-1a6b55c4-302c-4f06-a6af-073600641af2.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
+| 메인 화면<br>Nav Bar | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548316-74f42e68-56b7-42c3-b72d-5b022b7c9c96.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
+| 피드 페이지 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548316-74f42e68-56b7-42c3-b72d-5b022b7c9c96.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
 | 제품 카테고리별 화면 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548328-b1e938f4-f2bf-42e7-8451-c0e809356128.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
-| 상세페이지 및<br>제품별 리뷰 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548330-7ac6768c-6070-43c2-9bda-c898c4c6a4df.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 박상우 |
+| 상세페이지 및<br>제품별 리뷰 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548330-7ac6768c-6070-43c2-9bda-c898c4c6a4df.png" width = "400px"></p> | [FE] 배경민 <br> [BE] 최민주 |
 | 장바구니 추가<br>Modal 창 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548327-ecdbdeae-b8bd-45af-8404-77e41162d617.png" width = "200px"></p> | [FE] 배경민 <br> [BE] 최민주 |
 | 장바구니 조회/삭제 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548331-013f23e7-c8e1-4f88-b301-da0b8c25ca0c.png" width = "400px"></p> | [FE] 황선용 <br> [BE] 최민주 |
 | 주문/결제 | <p align="center"><img src="https://user-images.githubusercontent.com/53294075/212548332-5febd3dc-6d7f-4f6f-867a-987e5fb657db.png" width = "400px"><br><img src="https://user-images.githubusercontent.com/53294075/212548333-04bf373b-693e-48ee-be6f-da5a06487996.png" width = "400px"><br><img src="https://user-images.githubusercontent.com/53294075/212548335-02e004d0-d530-42c6-b8c0-5ed4e72d3473.png" width = "400px"></p> | [FE] 박정은 <br> [BE] 최민주 |
